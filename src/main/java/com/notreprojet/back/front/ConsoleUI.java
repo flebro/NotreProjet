@@ -28,6 +28,7 @@ public class ConsoleUI {
 			int compteur = 0;
 			try {
 				if (StringUtils.isNumeric(args[0])) {
+					calculusSwitch.clear();
 					calculusSwitch.storeAndExecute(new AddCommand(calculator, NumberUtils.toFloat(args[0])));
 					compteur++;
 				}
