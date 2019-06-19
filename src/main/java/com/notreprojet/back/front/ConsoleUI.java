@@ -52,7 +52,7 @@ public class ConsoleUI {
 							float member = NumberUtils.toFloat(args[compteur]);
 							calculusSwitch.storeAndExecute(new MultiplyCommand(calculator, member));
 						}
-					} else if (args[compteur].equals("-")) {
+					} else if ("-".equals(token)) {
 						compteur++;
 						if (args.length > compteur) {
 							float member = NumberUtils.toFloat(args[compteur]);
