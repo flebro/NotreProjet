@@ -2,7 +2,10 @@ package com.notreprojet.back.front;
 
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
+import com.notreprojet.back.calculus.exception.CalculusException;
 import com.notreprojet.back.command.AddCommand;
+import com.notreprojet.back.command.CalculationCommand;
+import com.notreprojet.back.command.DivideCommand;
 import com.notreprojet.back.command.Switch;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -21,23 +24,33 @@ public class ConsoleUI {
 			args = in.nextLine().toLowerCase().split(" ");
 
 			int compteur = 0;
-
-			if (StringUtils.isNumeric(args[0])) {
-				calculusSwitch.storeAndExecute(new AddCommand(calculator, NumberUtils.toFloat(args[0])));
-				compteur++;
-			}
-			while (compteur < args.length) {
-
-				if (args[compteur].equals("+")) {
+			try {
+				if (StringUtils.isNumeric(args[0])) {
+					calculusSwitch.storeAndExecute(new AddCommand(calculator, NumberUtils.toFloat(args[0])));
 					compteur++;
-					if (args.length > compteur) {
-						float member = NumberUtils.toFloat(args[compteur]);
-						calculusSwitch.storeAndExecute(new AddCommand(calculator, member));
-					}
 				}
-				compteur++;
-			}
+				while (compteur < args.length) {
+					String token = args[compteur];
 
+					if ("+".equals(token)) {
+						compteur++;
+						if (args.length > compteur) {
+							float member = NumberUtils.toFloat(args[compteur]);
+							calculusSwitch.storeAndExecute(new AddCommand(calculator, member));
+						}
+					} else if ("/".equals(token)) {
+						compteur++;
+						if (args.length > compteur) {
+							float member = NumberUtils.toFloat(args[compteur]);
+							calculusSwitch.storeAndExecute(new DivideCommand(calculator, member));
+						}
+					}
+
+					compteur++;
+				}
+			} catch (CalculusException cex) {
+				System.out.println(cex.getMessage());
+			}
 			System.out.println("Resultat : " + calculusSwitch.getState());
 		} while (args.length > 0 && !args[0].toLowerCase().equals("exit"));
 	}

@@ -1,5 +1,7 @@
 package com.notreprojet.back.command;
 
+import com.notreprojet.back.calculus.exception.CalculusException;
+
 public class Switch {
 
 	float state = 0;
@@ -7,7 +9,7 @@ public class Switch {
 		return state;
 	}
 
-	public float storeAndExecute(CalculationCommand calculationCommand) {
+	public float storeAndExecute(CalculationCommand calculationCommand) throws CalculusException {
 		this.store(calculationCommand);
 		state = calculationCommand.execute(state);
 		return state;
