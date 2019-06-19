@@ -4,6 +4,7 @@ import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
 import com.notreprojet.back.calculus.exception.CalculusException;
 import com.notreprojet.back.command.AddCommand;
+import com.notreprojet.back.command.SubCommand;
 import com.notreprojet.back.command.CalculationCommand;
 import com.notreprojet.back.command.DivideCommand;
 import com.notreprojet.back.command.MultiplyCommand;
@@ -51,8 +52,13 @@ public class ConsoleUI {
 							float member = NumberUtils.toFloat(args[compteur]);
 							calculusSwitch.storeAndExecute(new MultiplyCommand(calculator, member));
 						}
+					} else if (args[compteur].equals("-")) {
+						compteur++;
+						if (args.length > compteur) {
+							float member = NumberUtils.toFloat(args[compteur]);
+							calculusSwitch.storeAndExecute(new SubCommand(calculator, member));
+						}
 					}
-
 					compteur++;
 				}
 			} catch (CalculusException cex) {

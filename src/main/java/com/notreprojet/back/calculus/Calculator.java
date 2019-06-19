@@ -7,4 +7,6 @@ public interface Calculator {
 	float add(float first, float second);
 	float divide(float first, float second) throws CalculusException;
 	float multiply(float first, float second);
+	float sub(float first, float second);
+
 }
