@@ -1,9 +1,11 @@
-package com.notreprojet;
+package com.notreprojet.back;
+
+import com.notreprojet.back.front.ConsoleUI;
 
 public class Application {
 
 	public static void main(String[] args) {
-		System.out.println("Hello world");
+		new ConsoleUI().run();
 	}
 
 }
