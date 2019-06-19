@@ -6,6 +6,7 @@ import com.notreprojet.back.calculus.exception.CalculusException;
 import com.notreprojet.back.command.AddCommand;
 import com.notreprojet.back.command.CalculationCommand;
 import com.notreprojet.back.command.DivideCommand;
+import com.notreprojet.back.command.MultiplyCommand;
 import com.notreprojet.back.command.Switch;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -43,6 +44,12 @@ public class ConsoleUI {
 						if (args.length > compteur) {
 							float member = NumberUtils.toFloat(args[compteur]);
 							calculusSwitch.storeAndExecute(new DivideCommand(calculator, member));
+						}
+					} else if ("*".equals(token)) {
+						compteur++;
+						if (args.length > compteur) {
+							float member = NumberUtils.toFloat(args[compteur]);
+							calculusSwitch.storeAndExecute(new MultiplyCommand(calculator, member));
 						}
 					}
 
