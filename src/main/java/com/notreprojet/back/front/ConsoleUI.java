@@ -3,6 +3,7 @@ package com.notreprojet.back.front;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
 import com.notreprojet.back.command.AddCommand;
+import com.notreprojet.back.command.SubCommand;
 import com.notreprojet.back.command.Switch;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -35,6 +36,13 @@ public class ConsoleUI {
 						calculusSwitch.storeAndExecute(new AddCommand(calculator, member));
 					}
 				}
+				if (args[compteur].equals("-")) {
+					compteur++;
+					if (args.length > compteur) {
+						float member = NumberUtils.toFloat(args[compteur]);
+						calculusSwitch.storeAndExecute(new SubCommand(calculator, member));
+					}
+				}	
 				compteur++;
 			}
 

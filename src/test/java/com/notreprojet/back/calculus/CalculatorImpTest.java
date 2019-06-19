@@ -18,5 +18,10 @@ public class CalculatorImpTest {
 	public void add() {
 		Assertions.assertEquals(5, calculator.add(2, 3));
 	}
+	
+	@Test
+	public void sub() {
+		Assertions.assertEquals(3, calculator.sub(6, 3));
+	}
 
 }
