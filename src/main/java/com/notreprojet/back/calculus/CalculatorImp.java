@@ -8,6 +8,11 @@ public class CalculatorImp implements Calculator {
 	public float add(float first, float second) {
 		return first + second;
 	}
+	
+	@Override
+	public float multiply(float first, float second) {
+		return first * second;
+	}
 
 	@Override
 	public float divide(float first, float second) throws CalculusException {

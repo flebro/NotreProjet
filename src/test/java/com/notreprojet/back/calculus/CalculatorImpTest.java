@@ -29,5 +29,10 @@ public class CalculatorImpTest {
 	public void divide_by_zero() {
 		Assertions.assertThrows(CalculusException.class, () -> calculator.divide(5, 0));
 	}
+	
+	@Test
+	public void multiply() {
+		Assertions.assertEquals(56, calculator.multiply(7, 8));
+	}
 
 }
