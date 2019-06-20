@@ -3,11 +3,12 @@ package com.notreprojet.back.parsing;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test class for {@link Parser}.
+ */
 public class ParserTest {
 
 	private static final String TOKEN_LIST = " 5 - 3 ";
@@ -55,7 +56,5 @@ public class ParserTest {
 	public void parseToken_exception() {
 		assertThrows(ParsingException.class, () -> parser.parseToken("####"));
 	}
-
-
 
 }

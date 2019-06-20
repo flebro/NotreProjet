@@ -3,6 +3,9 @@ package com.notreprojet.back.command;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.exception.CalculusException;
 
+/**
+ * Command representing a division instruction.
+ */
 public class DivideCommand extends AbstractCalculationFunctionCommand {
 
 	public DivideCommand(Calculator calculator, float other) {
