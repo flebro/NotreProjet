@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-
+/**
+ * Test class for {@link CalculatorImp}.
+ */
 public class CalculatorImpTest {
 
 	CalculatorImp calculator;

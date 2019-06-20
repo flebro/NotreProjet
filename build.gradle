@@ -8,6 +8,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
 
 repositories {
 	mavenCentral()
@@ -23,4 +24,15 @@ dependencies {
 javadoc {
 	source = sourceSets.main.allJava
 	classpath = configurations.compile
+}
+
+checkstyle {
+	toolVersion '7.8.1'
+	configFile file("config/checkstyle/checkstyle.xml")
+}
+checkstyleMain {
+	source ='src/main/java'
+}
+checkstyleTest {
+	source ='src/test/java'
 }

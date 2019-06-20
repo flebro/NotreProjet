@@ -6,8 +6,9 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
-
+/**
+ * Test class for {@link DivideCommand}.
+ */
 public class DivideCommandTest {
 
 	@Test
