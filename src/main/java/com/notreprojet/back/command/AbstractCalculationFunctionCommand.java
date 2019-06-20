@@ -1,6 +1,7 @@
 package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
+import com.notreprojet.back.parsing.Operators;
 
 /**
  * Abstract implementation of CalculationCommand for an operation with two members.
@@ -22,11 +23,23 @@ public abstract class AbstractCalculationFunctionCommand implements CalculationC
 	 * Gets this command instance member.
 	 * @return this command instance member
 	 */
-	protected float getOther() {
+	@Override
+	public float getMember() {
 		return other;
 	}
 
-	public AbstractCalculationFunctionCommand(Calculator calculator, float other) {
+	private Operators operator;
+	/**
+	 * Gets this command operator.
+	 * @return this command instance operator
+	 */
+	@Override
+	public Operators getOperator() {
+		return operator;
+	}
+
+	public AbstractCalculationFunctionCommand(Calculator calculator, Operators operator, float other) {
+		this.operator = operator;
 		this.calculator = calculator;
 		this.other = other;
 	}
