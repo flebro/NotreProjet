@@ -3,6 +3,9 @@ package com.notreprojet.back.command;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.parsing.Instruction;
 
+/**
+ * This class is responsible of building commands from instructions.
+ */
 public class CommandFactory {
 
 	Calculator calculator;
@@ -11,6 +14,11 @@ public class CommandFactory {
 		this.calculator = calculator;
 	}
 
+	/**
+	 * Create a command from an instruction.
+	 * @param instruction instruction to build a command from
+	 * @return the builded command
+	 */
 	public CalculationCommand create(Instruction instruction) {
 		switch (instruction.getOperator()) {
 			case PLUS:

@@ -1,19 +1,20 @@
 package com.notreprojet.back.parsing;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.List;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test class for {@link Parser}.
+ */
 public class ParserTest {
 
 	private static final String TOKEN_LIST = " 5 - 3 ";
 	private Parser parser;
 
-	@Before
+	@BeforeAll
 	public void init() {
 		parser = new Parser();
 	}
@@ -55,7 +56,5 @@ public class ParserTest {
 	public void parseToken_exception() {
 		assertThrows(ParsingException.class, () -> parser.parseToken("####"));
 	}
-
-
 
 }

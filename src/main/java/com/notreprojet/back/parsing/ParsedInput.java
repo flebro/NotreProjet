@@ -2,6 +2,9 @@ package com.notreprojet.back.parsing;
 
 import java.util.List;
 
+/**
+ * This class represents a parsed input.
+ */
 public class ParsedInput {
 
 	private boolean reset;

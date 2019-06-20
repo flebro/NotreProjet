@@ -2,6 +2,9 @@ package com.notreprojet.back.calculus;
 
 import com.notreprojet.back.calculus.exception.CalculusException;
 
+/**
+ * Implementation of the calculus repository.
+ */
 public class CalculatorImp implements Calculator {
 
 	@Override

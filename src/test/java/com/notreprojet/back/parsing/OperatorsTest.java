@@ -1,11 +1,13 @@
 package com.notreprojet.back.parsing;
 
-import com.notreprojet.back.parsing.Operators;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Test class for {@link Operators}.
+ */
 public class OperatorsTest {
 
 	@Test

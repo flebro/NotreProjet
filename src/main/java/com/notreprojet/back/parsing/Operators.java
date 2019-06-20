@@ -3,6 +3,9 @@ package com.notreprojet.back.parsing;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * This enumeration lists the operations known by the application.
+ */
 public enum Operators {
 
 	PLUS ("+"),
