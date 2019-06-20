@@ -54,10 +54,6 @@ public class Parser {
 			}
 		}
 
-		if (previous != null) {
-			throw new ParsingException("An operator should always be followed by a number");
-		}
-
 		parsedInput.setInstructions(instructions);
 
 		return parsedInput;
