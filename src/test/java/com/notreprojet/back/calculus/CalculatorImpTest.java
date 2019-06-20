@@ -1,9 +1,9 @@
 package com.notreprojet.back.calculus;
 
 import com.notreprojet.back.calculus.exception.CalculusException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for {@link CalculatorImp}.
@@ -12,34 +12,39 @@ public class CalculatorImpTest {
 
 	CalculatorImp calculator;
 
-	@BeforeAll
+	@Before
 	public void init() {
 		calculator = new CalculatorImp();
 	}
 
 	@Test
 	public void add() {
-		Assertions.assertEquals(5, calculator.add(2, 3));
+		Assert.assertEquals(5F, calculator.add(2, 3), 0);
 	}
 	
 	@Test
 	public void sub() {
-		Assertions.assertEquals(3, calculator.sub(6, 3));
+		Assert.assertEquals(3F, calculator.sub(6, 3), 0);
 	}
 
 	@Test
 	public void divide() throws CalculusException {
-		Assertions.assertEquals(2.5, calculator.divide(5, 2));
+		Assert.assertEquals(2.5F, calculator.divide(5, 2), 0);
 	}
 
 	@Test
 	public void divide_by_zero() {
-		Assertions.assertThrows(CalculusException.class, () -> calculator.divide(5, 0));
+		try {
+			calculator.divide(5, 0);
+			Assert.fail();
+		} catch (CalculusException e) {
+			Assert.assertEquals(CalculusException.class, e.getClass());
+		}
 	}
 	
 	@Test
 	public void multiply() {
-		Assertions.assertEquals(56, calculator.multiply(7, 8));
+		Assert.assertEquals(56F, calculator.multiply(7, 8), 0);
 	}
 	
 	@Test

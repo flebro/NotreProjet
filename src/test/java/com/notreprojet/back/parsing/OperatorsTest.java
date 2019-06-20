@@ -1,9 +1,7 @@
 package com.notreprojet.back.parsing;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.NoSuchElementException;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test class for {@link Operators}.
@@ -12,22 +10,22 @@ public class OperatorsTest {
 
 	@Test
 	public void fromToken_plus() {
-		Assertions.assertEquals(Operators.PLUS, Operators.fromToken("+").get());
+		Assert.assertEquals(Operators.PLUS, Operators.fromToken("+").get());
 	}
 
 	@Test
 	public void fromToken_minus() {
-		Assertions.assertEquals(Operators.MINUS, Operators.fromToken("-").get());
+		Assert.assertEquals(Operators.MINUS, Operators.fromToken("-").get());
 	}
 
 	@Test
 	public void fromToken_times() {
-		Assertions.assertEquals(Operators.TIMES, Operators.fromToken("*").get());
+		Assert.assertEquals(Operators.TIMES, Operators.fromToken("*").get());
 	}
 
 	@Test
 	public void fromToken_divide() {
-		Assertions.assertEquals(Operators.DIVIDE, Operators.fromToken("/").get());
+		Assert.assertEquals(Operators.DIVIDE, Operators.fromToken("/").get());
 	}
 	
 	@Test
@@ -45,8 +43,4 @@ public class OperatorsTest {
 		Assertions.assertEquals(Operators.TAN, Operators.fromToken("tan").get());
 	}
 
-	@Test
-	public void fromToken_none() {
-		Assertions.assertThrows(NoSuchElementException.class, () -> Operators.fromToken("").get());
-	}
 }
