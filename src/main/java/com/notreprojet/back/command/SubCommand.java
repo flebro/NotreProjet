@@ -5,8 +5,8 @@ import com.notreprojet.back.calculus.Calculator;
  * Command representing a substraction instruction.
  */
 public class SubCommand implements CalculationCommand {
-	private Calculator calculator;
-	private float other;
+	private transient Calculator calculator;
+	private transient float other;
 
 	public SubCommand(Calculator calculator, float other) {
 		this.calculator = calculator;

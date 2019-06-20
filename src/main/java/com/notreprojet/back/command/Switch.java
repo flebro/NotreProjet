@@ -7,7 +7,7 @@ import com.notreprojet.back.calculus.exception.CalculusException;
  */
 public class Switch {
 
-	float state = 0;
+	transient float state = 0;
 	public float getState() {
 		return state;
 	}

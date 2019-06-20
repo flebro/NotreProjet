@@ -4,7 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -16,7 +18,7 @@ public class Parser {
 		ParsedInput parsedInput = new ParsedInput();
 		List<Instruction> instructions = new ArrayList<>();
 		Token previous = null;
-		for (String token : input.trim().toLowerCase().split(" ")) {
+		for (String token : input.trim().toLowerCase(Locale.getDefault()).split(" ")) {
 			Token parsedToken = parseToken(token);
 			if (instructions.isEmpty() && previous == null &&
 					Float.class.equals(parsedToken.getValueClass())) {

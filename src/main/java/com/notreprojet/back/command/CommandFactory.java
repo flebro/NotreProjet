@@ -8,7 +8,7 @@ import com.notreprojet.back.parsing.Instruction;
  */
 public class CommandFactory {
 
-	Calculator calculator;
+	transient Calculator calculator;
 
 	public CommandFactory(Calculator calculator) {
 		this.calculator = calculator;
