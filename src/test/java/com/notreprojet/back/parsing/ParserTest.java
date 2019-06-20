@@ -1,7 +1,7 @@
 package com.notreprojet.back.parsing;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,7 +14,7 @@ public class ParserTest {
 	private static final String TOKEN_LIST = " 5 - 3 ";
 	private Parser parser;
 
-	@Before
+	@BeforeAll
 	public void init() {
 		parser = new Parser();
 	}

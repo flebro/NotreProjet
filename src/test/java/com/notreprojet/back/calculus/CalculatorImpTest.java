@@ -1,9 +1,9 @@
 package com.notreprojet.back.calculus;
 
 import com.notreprojet.back.calculus.exception.CalculusException;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link CalculatorImp}.
@@ -12,7 +12,7 @@ public class CalculatorImpTest {
 
 	CalculatorImp calculator;
 
-	@Before
+	@BeforeAll
 	public void init() {
 		calculator = new CalculatorImp();
 	}

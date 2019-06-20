@@ -2,9 +2,9 @@ package com.notreprojet.back.command;
 
 import com.notreprojet.back.parsing.Instruction;
 import com.notreprojet.back.parsing.Operators;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test class for {@link CommandFactory}.
@@ -13,7 +13,7 @@ public class CommandFactoryTest {
 
 	CommandFactory commandFactory;
 
-	@Before
+	@BeforeAll
 	public void init() {
 		commandFactory = new CommandFactory(null);
 	}

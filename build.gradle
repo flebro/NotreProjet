@@ -2,16 +2,11 @@ buildscript {
 	repositories {
 		mavenCentral()
 	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
-	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 
@@ -20,12 +15,15 @@ repositories {
 }
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.apache.commons:commons-lang3:3.9")
 	compile("org.apache.commons:commons-collections4:4.3")
-	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("org.mockito:mockito-core:2.+")
 	testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
+}
+
+javadoc {
+	source = sourceSets.main.allJava
+	classpath = configurations.compile
 }
 
 checkstyle {
