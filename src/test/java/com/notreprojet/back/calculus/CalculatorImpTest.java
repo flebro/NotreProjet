@@ -46,5 +46,19 @@ public class CalculatorImpTest {
 	public void multiply() {
 		Assert.assertEquals(56F, calculator.multiply(7, 8), 0);
 	}
+	
+	@Test
+	public void sin() {
+		Assert.assertEquals(-0.30481061339378357, calculator.sin(60), 0);
+	}
+	
+	@Test
+	public void cos() {
+		Assert.assertEquals(-0.9524129629135132, calculator.cos(60), 0);
+	}
 
+	@Test
+	public void tan() {
+		Assert.assertEquals(0.32004037499427795, calculator.tan(60), 0);
+	}
 }
