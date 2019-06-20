@@ -31,6 +31,7 @@ public class ConsoleUI {
 				System.out.println("Resultat : " + calculusSwitch.getState());
 			} catch (ParsingException | CalculusException e) {
 				System.out.println(e.getMessage());
+				calculusSwitch.clear();
 			}
 		} while (true);
 	}

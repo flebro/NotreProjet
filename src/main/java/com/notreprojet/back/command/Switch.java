@@ -14,6 +14,10 @@ public class Switch {
 		state = calculationCommand.execute(state);
 		return state;
 	}
+	
+	public void clear() {
+		this.state=0;
+	}
 
 	private void store(CalculationCommand calculationCommand) {}
 
