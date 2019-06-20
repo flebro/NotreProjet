@@ -41,6 +41,5 @@ public class CalculatorImpTest {
 	public void multiply() {
 		Assertions.assertEquals(56, calculator.multiply(7, 8));
 	}
-	
 
 }
