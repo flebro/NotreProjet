@@ -39,5 +39,7 @@ public interface Calculator {
 	 * @return the result of the substraction
 	 */
 	float sub(float first, float second);
-
+	float sin(float first);
+	float cos(float first);
+	float tan(float first);
 }

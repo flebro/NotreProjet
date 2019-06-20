@@ -11,6 +11,7 @@ import com.notreprojet.back.parsing.Parser;
 import com.notreprojet.back.parsing.ParsingException;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -83,16 +84,20 @@ public class ConsoleUI {
 	 * @param calculationCommands commands to execute
 	 * @throws CalculusException if the calculus encounters an error
 	 */
-	private void runAndPromptCalculation(
+	public List<String> runAndOutputCalculation(
 			Switch calculusSwitch, List<CalculationCommand> calculationCommands)
 			throws CalculusException {
+		List<String> outputs = new ArrayList<>();
+
 		for (CalculationCommand calculationCommand : calculationCommands) {
 			calculusSwitch.storeAndExecute(calculationCommand);
-			out.println(MessageFormat.format(
+			outputs.add(MessageFormat.format(
 					"{0} {1} = {2}",
 					calculationCommand.getOperator().getToken(),
 					calculationCommand.getMember(),
 					calculusSwitch.getState()));
 		}
+		return outputs;
 	}
+
 }
