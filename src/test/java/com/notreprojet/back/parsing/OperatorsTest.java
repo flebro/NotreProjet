@@ -30,17 +30,17 @@ public class OperatorsTest {
 	
 	@Test
 	public void fromToken_sin() {
-		Assertions.assertEquals(Operators.SIN, Operators.fromToken("sin").get());
+		Assert.assertEquals(Operators.SIN, Operators.fromToken("sin").get());
 	}
 	
 	@Test
 	public void fromToken_cos() {
-		Assertions.assertEquals(Operators.COS, Operators.fromToken("cos").get());
+		Assert.assertEquals(Operators.COS, Operators.fromToken("cos").get());
 	}
 	
 	@Test
 	public void fromToken_tan() {
-		Assertions.assertEquals(Operators.TAN, Operators.fromToken("tan").get());
+		Assert.assertEquals(Operators.TAN, Operators.fromToken("tan").get());
 	}
 
 }
