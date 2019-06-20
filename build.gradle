@@ -34,4 +34,5 @@ checkstyleTest {
 
 pmd {
     pmdTest.enabled=false
+    rulePriority=4
 }

@@ -6,6 +6,11 @@ package com.notreprojet.back.calculus.exception;
 public class CalculusException extends Exception {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 706076573336612577L;
+
+	/**
 	 * Constructor with an error message.
 	 * @param message error message
 	 */

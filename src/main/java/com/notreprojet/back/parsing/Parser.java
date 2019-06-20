@@ -22,12 +22,12 @@ public class Parser {
 	public ParsedInput parseTokensList(String input) throws ParsingException {
 		ParsedInput parsedInput = new ParsedInput();
 		List<Instruction> instructions = new ArrayList<>();
-		Token previous = null;
+		Optional<Token> previous = Optional.empty();
 		for (String token : input.trim().toLowerCase(Locale.getDefault()).split(" ")) {
 			Token parsedToken = parseToken(token);
 			if (Methods.class.equals(parsedToken.getValueClass())) {
 				if (CollectionUtils.isNotEmpty(instructions) ||
-				previous != null) {
+						previous.isPresent()) {
 					throw new ParsingException("A method should be the only token present");
 				} else {
 					parsedInput.setMethods((Methods) parsedToken.getValue());
@@ -35,22 +35,22 @@ public class Parser {
 				}
 			}
 
-			if (instructions.isEmpty() && previous == null &&
+			if (instructions.isEmpty() && !previous.isPresent() &&
 					Float.class.equals(parsedToken.getValueClass())) {
 				instructions.add(new Instruction(Operators.PLUS, (Float) parsedToken.getValue()));
 				parsedInput.setReset(true);
-			} else if (previous == null) {
+			} else if (!previous.isPresent()) {
 				if (!Operators.class.equals(parsedToken.getValueClass())) {
 					throw new ParsingException("The input can not have two consecutive operators");
 				} else {
-					previous = parsedToken;
+					previous = Optional.of(parsedToken);
 				}
 			} else if (Float.class.equals(parsedToken.getValueClass())) {
 				Instruction instruction = new Instruction(
-						(Operators) previous.getValue(),
+						(Operators) previous.get().getValue(),
 						(Float) parsedToken.getValue());
 				instructions.add(instruction);
-				previous = null;
+				previous = Optional.empty();
 			}
 		}
 
