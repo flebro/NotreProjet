@@ -86,7 +86,7 @@ public class ConsoleUI {
 				List<CalculationCommand> calculationCommands =
 						calculusSwitch.getHistory();
 				calculusSwitch.clear();
-				runAndOutputCalculation(calculusSwitch, calculationCommands);
+				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(out::println);
 				break;
 		}
 		return false;
