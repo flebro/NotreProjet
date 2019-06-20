@@ -3,12 +3,7 @@ package com.notreprojet.back.front;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
 import com.notreprojet.back.calculus.exception.CalculusException;
-import com.notreprojet.back.command.AddCommand;
-import com.notreprojet.back.command.SubCommand;
-import com.notreprojet.back.command.CalculationCommand;
-import com.notreprojet.back.command.DivideCommand;
-import com.notreprojet.back.command.MultiplyCommand;
-import com.notreprojet.back.command.Switch;
+import com.notreprojet.back.command.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -21,7 +16,7 @@ public class ConsoleUI {
 		Calculator calculator = new CalculatorImp();
 		Switch calculusSwitch = new Switch();
 		String[] args = null;
-		
+
 		System.out.println("Bienvenue sur la calculatrice.");
 		System.out.print("Entrez votre premier calcul : ");
 
