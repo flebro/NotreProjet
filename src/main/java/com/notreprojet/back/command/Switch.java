@@ -15,7 +15,7 @@ public class Switch {
 		return state;
 	}
 
-	List<CalculationCommand> history;
+	transient List<CalculationCommand> history;
 
 	/**
 	 * Get this instance commands history.

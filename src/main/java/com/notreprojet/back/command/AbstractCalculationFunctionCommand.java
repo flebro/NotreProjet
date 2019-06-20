@@ -28,7 +28,7 @@ public abstract class AbstractCalculationFunctionCommand implements CalculationC
 		return other;
 	}
 
-	private Operators operator;
+	private transient Operators operator;
 	/**
 	 * Gets this command operator.
 	 * @return this command instance operator
