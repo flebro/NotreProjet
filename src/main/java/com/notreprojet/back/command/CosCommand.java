@@ -1,6 +1,7 @@
 package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
+import com.notreprojet.back.parsing.Operators;
 
 /**
  * Command representing a cosine instruction.
@@ -8,12 +9,12 @@ import com.notreprojet.back.calculus.Calculator;
 public class CosCommand extends AbstractCalculationFunctionCommand {
 
 	public CosCommand(Calculator calculator, float other) {
-		super(calculator, other);
+		super(calculator, Operators.COS, other);
 	}
 	
 	@Override
 	public float execute(float number) {
-		return getCalculator().cos(getOther());
+		return getCalculator().cos(getMember());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
+import com.notreprojet.back.parsing.Operators;
 
 /**
  * Command representing a tangent instruction.
@@ -8,12 +9,12 @@ import com.notreprojet.back.calculus.Calculator;
 public class TanCommand extends AbstractCalculationFunctionCommand {
 
 	public TanCommand(Calculator calculator, float other) {
-		super(calculator, other);
+		super(calculator, Operators.TAN, other);
 	}
 	
 	@Override
 	public float execute(float number) {
-		return getCalculator().tan(getOther());
+		return getCalculator().tan(getMember());
 	}
 
 }
