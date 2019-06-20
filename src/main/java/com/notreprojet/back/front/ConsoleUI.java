@@ -53,7 +53,8 @@ public class ConsoleUI {
 							List<CalculationCommand> calculationCommands =
 									calculusSwitch.getHistory();
 							calculusSwitch.clear();
-							runAndPromptCalculation(calculusSwitch, calculationCommands);
+							runAndOutputCalculation(calculusSwitch, calculationCommands);
+							out.print("Nouveau calcul : ");
 							break;
 					}
 				} else {
@@ -64,15 +65,14 @@ public class ConsoleUI {
 					List<CalculationCommand> calculationCommands =
 							parsedInput.getInstructions().stream()
 							.map(commandFactory::create).collect(Collectors.toList());
-						runAndPromptCalculation(calculusSwitch, calculationCommands);
+					runAndOutputCalculation(calculusSwitch, calculationCommands)
+							.forEach(out::println);
+					out.print("Nouveau calcul : ");
 				}
 			} catch (ParsingException | CalculusException e) {
 				out.println(e.getMessage());
 				calculusSwitch.clear();
 				out.println("L'historique a été vidé!");
-			}
-			if (!quit) {
-				out.print("Nouveau calcul : ");
 			}
 		} while (!quit);
 	}
