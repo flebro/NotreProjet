@@ -10,6 +10,8 @@ import com.notreprojet.back.parsing.ParsedInput;
 import com.notreprojet.back.parsing.Parser;
 import com.notreprojet.back.parsing.ParsingException;
 
+import java.text.MessageFormat;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,9 @@ import static java.lang.System.out;
  */
 public class ConsoleUI {
 
+	/**
+	 * Runs the application.
+	 */
 	public void run() {
 		Scanner in = new Scanner(System.in);
 		Calculator calculator = new CalculatorImp();
@@ -27,17 +32,57 @@ public class ConsoleUI {
 		CommandFactory commandFactory = new CommandFactory(calculator);
 		Parser parser = new Parser();
 
+		boolean quit = false;
+
 		do {
 			try {
 				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
-				for (CalculationCommand calculationCommand : parsedInput.getInstructions().stream()
-						.map(commandFactory::create).collect(Collectors.toList())) {
-					calculusSwitch.storeAndExecute(calculationCommand);
+				// We check if we received a method
+				if (parsedInput.getMethods() != null) {
+					switch (parsedInput.getMethods()) {
+						case QUIT:
+							quit = true;
+							break;
+						case HISTORY:
+							List<CalculationCommand> calculationCommands =
+									calculusSwitch.getHistory();
+							calculusSwitch.clear();
+							runAndPromptCalculation(calculusSwitch, calculationCommands);
+							break;
+					}
+				} else {
+					if (parsedInput.isReset() == true) {
+						calculusSwitch.clear();
+					}
+					// Else we run calculation
+					List<CalculationCommand> calculationCommands =
+							parsedInput.getInstructions().stream()
+							.map(commandFactory::create).collect(Collectors.toList());
+						runAndPromptCalculation(calculusSwitch, calculationCommands);
 				}
-				out.println("Resultat : " + calculusSwitch.getState());
 			} catch (ParsingException | CalculusException e) {
 				out.println(e.getMessage());
+				calculusSwitch.clear();
 			}
-		} while (true);
+		} while (!quit);
+	}
+
+	/**
+	 * Runs and store a list of calculation commands through a switch.
+	 * @param calculusSwitch switch that will execute commands
+	 * @param calculationCommands comman,ds to execute
+	 * @throws CalculusException if the calculus encounters an error
+	 */
+	private void runAndPromptCalculation(
+			Switch calculusSwitch, List<CalculationCommand> calculationCommands)
+			throws CalculusException {
+		for (CalculationCommand calculationCommand : calculationCommands) {
+			calculusSwitch.storeAndExecute(calculationCommand);
+			out.println(MessageFormat.format(
+					"{0} {1} = {2}",
+					calculationCommand.getOperator().getToken(),
+					calculationCommand.getMember(),
+					calculusSwitch.getState()));
+		}
 	}
 }

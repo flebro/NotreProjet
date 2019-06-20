@@ -1,10 +1,10 @@
 package com.notreprojet.back.parsing;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class for {@link Parser}.
@@ -14,7 +14,7 @@ public class ParserTest {
 	private static final String TOKEN_LIST = " 5 - 3 ";
 	private Parser parser;
 
-	@BeforeAll
+	@Before
 	public void init() {
 		parser = new Parser();
 	}
@@ -23,19 +23,25 @@ public class ParserTest {
 	public void parseTokensList_ok() throws ParsingException {
 		ParsedInput parsedInput = parser.parseTokensList(TOKEN_LIST);
 		assertEquals(Operators.PLUS, parsedInput.getInstructions().get(0).getOperator());
-		assertEquals(5, parsedInput.getInstructions().get(0).getNumber());
+		assertEquals(5, parsedInput.getInstructions().get(0).getNumber(), 0);
 		assertEquals(Operators.MINUS, parsedInput.getInstructions().get(1).getOperator());
-		assertEquals(3, parsedInput.getInstructions().get(1).getNumber());
+		assertEquals(3, parsedInput.getInstructions().get(1).getNumber(), 0);
 		assertEquals(true, parsedInput.isReset());
 	}
 
 	@Test
 	public void parseTokensList_errors() throws ParsingException {
-		assertThrows(ParsingException.class, () -> parser.parseTokensList("5 5"));
-		assertThrows(ParsingException.class, () -> parser.parseTokensList(""));
-		assertThrows(ParsingException.class, () -> parser.parseTokensList("5 +"));
-		assertThrows(ParsingException.class, () -> parser.parseTokensList("+ -"));
-		assertThrows(ParsingException.class, () -> parser.parseTokensList("exit 5"));
+		try {
+			parser.parseTokensList("5 5");
+			parser.parseTokensList("");
+			parser.parseTokensList("5 +");
+			parser.parseTokensList("+ -");
+			parser.parseTokensList("history 5");
+			parser.parseTokensList("5 history");
+			Assert.fail();
+		} catch (ParsingException e) {
+			assertEquals(ParsingException.class, e.getClass());
+		}
 	}
 
 	@Test
@@ -53,8 +59,20 @@ public class ParserTest {
 	}
 
 	@Test
+	public void parseToken_methods() throws ParsingException {
+		Token token = parser.parseToken(Methods.HISTORY.getToken());
+		assertEquals(Methods.class, token.getValueClass());
+		assertEquals(Methods.HISTORY, token.getValue());
+	}
+
+	@Test
 	public void parseToken_exception() {
-		assertThrows(ParsingException.class, () -> parser.parseToken("####"));
+		try {
+			parser.parseToken("####");
+			Assert.fail();
+		} catch (ParsingException e) {
+			assertEquals(ParsingException.class, e.getClass());
+		}
 	}
 
 }

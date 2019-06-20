@@ -1,20 +1,18 @@
 package com.notreprojet.back.command;
 import com.notreprojet.back.calculus.Calculator;
+import com.notreprojet.back.parsing.Operators;
 
 /**
  * Command representing a substraction instruction.
  */
-public class SubCommand implements CalculationCommand {
-	private transient Calculator calculator;
-	private transient float other;
+public class SubCommand extends AbstractCalculationFunctionCommand {
 
 	public SubCommand(Calculator calculator, float other) {
-		this.calculator = calculator;
-		this.other = other;
+		super(calculator, Operators.MINUS, other);
 	}
 
 	@Override
 	public float execute(float number) {
-		return calculator.sub(number, other);
+		return getCalculator().sub(number, getMember());
 	}
 }
