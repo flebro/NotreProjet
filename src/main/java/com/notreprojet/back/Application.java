@@ -3,7 +3,7 @@ package com.notreprojet.back;
 import com.notreprojet.back.front.ConsoleUI;
 
 /**
- * Entry class
+ * Entry class of the application.
  */
 public class Application {
 

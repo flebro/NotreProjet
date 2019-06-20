@@ -2,6 +2,9 @@ package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
 
+/**
+ * Command representing a multiplication instruction.
+ */
 public class MultiplyCommand extends AbstractCalculationFunctionCommand {
 
 	public MultiplyCommand(Calculator calculator, float other) {
