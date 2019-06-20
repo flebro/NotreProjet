@@ -1,12 +1,13 @@
 package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
-
+/**
+ * Test class for {@link SubCommand}.
+ */
 public class CosCommandTest {
 
 	@Test
