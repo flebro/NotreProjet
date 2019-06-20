@@ -21,6 +21,12 @@ public class CommandFactory {
 				return new MultiplyCommand(calculator, instruction.getNumber());
 			case DIVIDE:
 				return new DivideCommand(calculator, instruction.getNumber());
+			case SIN:
+				return new SinCommand(calculator, instruction.getNumber());
+			case COS:
+				return new CosCommand(calculator, instruction.getNumber());
+			case TAN:
+				return new TanCommand(calculator, instruction.getNumber());
 			default: return null;
 		}
 	}

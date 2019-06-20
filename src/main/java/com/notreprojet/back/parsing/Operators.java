@@ -8,7 +8,10 @@ public enum Operators {
 	PLUS ("+"),
 	MINUS ("-"),
 	TIMES ("*"),
-	DIVIDE ("/");
+	DIVIDE ("/"),
+	SIN ("sin"),
+	COS ("cos"),
+	TAN ("tan");
 
 	private String token;
 

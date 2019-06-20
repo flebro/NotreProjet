@@ -27,5 +27,20 @@ public class CalculatorImp implements Calculator {
 			return first / second;
 		}
 	}
+	
+	@Override
+	public float sin(float first) {
+		return (float) Math.sin(first);
+	}
+	
+	@Override
+	public float cos(float first) {
+		return (float) Math.cos(first);
+	}
+	
+	@Override
+	public float tan(float first) {
+		return (float) Math.tan(first);
+	}
 
 }

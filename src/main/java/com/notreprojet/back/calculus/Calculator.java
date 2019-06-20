@@ -8,5 +8,7 @@ public interface Calculator {
 	float divide(float first, float second) throws CalculusException;
 	float multiply(float first, float second);
 	float sub(float first, float second);
-
+	float sin(float first);
+	float cos(float first);
+	float tan(float first);
 }

@@ -27,6 +27,21 @@ public class OperatorsTest {
 	public void fromToken_divide() {
 		Assertions.assertEquals(Operators.DIVIDE, Operators.fromToken("/").get());
 	}
+	
+	@Test
+	public void fromToken_sin() {
+		Assertions.assertEquals(Operators.SIN, Operators.fromToken("sin").get());
+	}
+	
+	@Test
+	public void fromToken_cos() {
+		Assertions.assertEquals(Operators.COS, Operators.fromToken("cos").get());
+	}
+	
+	@Test
+	public void fromToken_tan() {
+		Assertions.assertEquals(Operators.TAN, Operators.fromToken("tan").get());
+	}
 
 	@Test
 	public void fromToken_none() {
