@@ -3,16 +3,15 @@ package com.notreprojet.back.front;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
 import com.notreprojet.back.calculus.exception.CalculusException;
-import com.notreprojet.back.command.AddCommand;
-import com.notreprojet.back.command.SubCommand;
 import com.notreprojet.back.command.CalculationCommand;
-import com.notreprojet.back.command.DivideCommand;
-import com.notreprojet.back.command.MultiplyCommand;
+import com.notreprojet.back.command.CommandFactory;
 import com.notreprojet.back.command.Switch;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
+import com.notreprojet.back.parsing.ParsedInput;
+import com.notreprojet.back.parsing.Parser;
+import com.notreprojet.back.parsing.ParsingException;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class ConsoleUI {
 
@@ -20,53 +19,19 @@ public class ConsoleUI {
 		Scanner in = new Scanner(System.in);
 		Calculator calculator = new CalculatorImp();
 		Switch calculusSwitch = new Switch();
-		String[] args = null;
+		CommandFactory commandFactory = new CommandFactory(calculator);
+		Parser parser = new Parser();
 
 		do {
-			args = in.nextLine().toLowerCase().split(" ");
-
-			int compteur = 0;
 			try {
-				if (StringUtils.isNumeric(args[0])) {
-					calculusSwitch.clear();
-					calculusSwitch.storeAndExecute(new AddCommand(calculator, NumberUtils.toFloat(args[0])));
-					compteur++;
+				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
+				for (CalculationCommand calculationCommand : parsedInput.getInstructions().stream().map(commandFactory::create).collect(Collectors.toList())) {
+					calculusSwitch.storeAndExecute(calculationCommand);
 				}
-				while (compteur < args.length) {
-					String token = args[compteur];
-
-					if ("+".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new AddCommand(calculator, member));
-						}
-					} else if ("/".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new DivideCommand(calculator, member));
-						}
-					} else if ("*".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new MultiplyCommand(calculator, member));
-						}
-					} else if ("-".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new SubCommand(calculator, member));
-						}
-					}
-					compteur++;
-				}
-			} catch (CalculusException cex) {
-				System.out.println(cex.getMessage());
+				System.out.println("Resultat : " + calculusSwitch.getState());
+			} catch (ParsingException | CalculusException e) {
+				System.out.println(e.getMessage());
 			}
-			System.out.println("Resultat : " + calculusSwitch.getState());
-		} while (args.length > 0 && !args[0].toLowerCase().equals("exit"));
+		} while (true);
 	}
-
 }
