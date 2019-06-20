@@ -2,6 +2,9 @@ package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.exception.CalculusException;
 
+/**
+ * Our command pattern Switch responsible for the execution and storing of calculus commands.
+ */
 public class Switch {
 
 	float state = 0;

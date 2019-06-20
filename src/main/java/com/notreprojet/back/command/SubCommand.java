@@ -1,6 +1,9 @@
 package com.notreprojet.back.command;
 import com.notreprojet.back.calculus.Calculator;
 
+/**
+ * Command representing a substraction instruction.
+ */
 public class SubCommand implements CalculationCommand {
 	private Calculator calculator;
 	private float other;
