@@ -19,7 +19,7 @@ public class Switch {
 	}
 	
 	public void clear() {
-		this.state=0;
+		this.state = 0;
 	}
 
 	private void store(CalculationCommand calculationCommand) {}

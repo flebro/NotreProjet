@@ -30,7 +30,7 @@ public class ConsoleUI {
 		do {
 			try {
 				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
-				if (parsedInput.isReset()==true) {
+				if (parsedInput.isReset() == true) {
 					calculusSwitch.clear();
 				}
 				for (CalculationCommand calculationCommand : parsedInput.getInstructions().stream()
