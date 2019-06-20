@@ -34,6 +34,11 @@ public class ConsoleUI {
 		Parser parser = new Parser();
 
 		boolean quit = false;
+		
+		out.println("Bienvenue dans la calculatrice!");
+		out.println("	tapez 'quit' pour quitter");
+		out.println("	tapez 'history' pour afficher l'historique");
+		out.print("\nEntrez votre premier calcul : ");
 
 		do {
 			try {
@@ -43,6 +48,7 @@ public class ConsoleUI {
 					switch (parsedInput.getMethods()) {
 						case QUIT:
 							quit = true;
+							out.println("Au revoir!");
 							break;
 						case HISTORY:
 							List<CalculationCommand> calculationCommands =
@@ -65,6 +71,10 @@ public class ConsoleUI {
 			} catch (ParsingException | CalculusException e) {
 				out.println(e.getMessage());
 				calculusSwitch.clear();
+				out.println("L'historique a été vidé!");
+			}
+			if (!quit) {
+				out.print("Nouveau calcul : ");
 			}
 		} while (!quit);
 	}
@@ -72,7 +82,7 @@ public class ConsoleUI {
 	/**
 	 * Runs and store a list of calculation commands through a switch.
 	 * @param calculusSwitch switch that will execute commands
-	 * @param calculationCommands comman,ds to execute
+	 * @param calculationCommands commands to execute
 	 * @throws CalculusException if the calculus encounters an error
 	 */
 	public List<String> runAndOutputCalculation(
