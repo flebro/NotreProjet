@@ -21,6 +21,9 @@ public class ConsoleUI {
 		Calculator calculator = new CalculatorImp();
 		Switch calculusSwitch = new Switch();
 		String[] args = null;
+		
+		System.out.println("Bienvenue sur la calculatrice.");
+		System.out.print("Entrez votre premier calcul : ");
 
 		do {
 			args = in.nextLine().toLowerCase().split(" ");
@@ -61,10 +64,11 @@ public class ConsoleUI {
 					}
 					compteur++;
 				}
+				System.out.println("Resultat : " + calculusSwitch.getState());
+				System.out.print("Calcul suivant : ");
 			} catch (CalculusException cex) {
-				System.out.println(cex.getMessage());
+				System.out.println("Erreur : " + cex.getMessage());
 			}
-			System.out.println("Resultat : " + calculusSwitch.getState());
 		} while (args.length > 0 && !args[0].toLowerCase().equals("exit"));
 	}
 
