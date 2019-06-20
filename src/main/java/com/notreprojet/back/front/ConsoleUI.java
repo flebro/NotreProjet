@@ -11,6 +11,7 @@ import com.notreprojet.back.parsing.Parser;
 import com.notreprojet.back.parsing.ParsingException;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -47,7 +48,7 @@ public class ConsoleUI {
 							List<CalculationCommand> calculationCommands =
 									calculusSwitch.getHistory();
 							calculusSwitch.clear();
-							runAndPromptCalculation(calculusSwitch, calculationCommands);
+							runAndOutputCalculation(calculusSwitch, calculationCommands);
 							break;
 					}
 				} else {
@@ -58,7 +59,8 @@ public class ConsoleUI {
 					List<CalculationCommand> calculationCommands =
 							parsedInput.getInstructions().stream()
 							.map(commandFactory::create).collect(Collectors.toList());
-						runAndPromptCalculation(calculusSwitch, calculationCommands);
+					runAndOutputCalculation(calculusSwitch, calculationCommands)
+							.forEach(out::println);
 				}
 			} catch (ParsingException | CalculusException e) {
 				out.println(e.getMessage());
@@ -73,16 +75,20 @@ public class ConsoleUI {
 	 * @param calculationCommands comman,ds to execute
 	 * @throws CalculusException if the calculus encounters an error
 	 */
-	private void runAndPromptCalculation(
+	public List<String> runAndOutputCalculation(
 			Switch calculusSwitch, List<CalculationCommand> calculationCommands)
 			throws CalculusException {
+		List<String> outputs = new ArrayList<>();
+
 		for (CalculationCommand calculationCommand : calculationCommands) {
 			calculusSwitch.storeAndExecute(calculationCommand);
-			out.println(MessageFormat.format(
+			outputs.add(MessageFormat.format(
 					"{0} {1} = {2}",
 					calculationCommand.getOperator().getToken(),
 					calculationCommand.getMember(),
 					calculusSwitch.getState()));
 		}
+		return outputs;
 	}
+
 }
