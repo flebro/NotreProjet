@@ -36,11 +36,19 @@ public class ParserTest {
 			parser.parseTokensList("");
 			parser.parseTokensList("5 +");
 			parser.parseTokensList("+ -");
-			parser.parseTokensList("exit 5");
+			parser.parseTokensList("history 5");
+			parser.parseTokensList("5 history");
+			parser.parseTokensList("+ 5 history");
 			Assert.fail();
 		} catch (ParsingException e) {
 			assertEquals(ParsingException.class, e.getClass());
 		}
+	}
+
+	@Test
+	public void parseTokensList_method() throws ParsingException {
+		ParsedInput parsedInput = parser.parseTokensList("history");
+		assertEquals(Methods.HISTORY, parsedInput.getMethods());
 	}
 
 	@Test
@@ -55,6 +63,13 @@ public class ParserTest {
 		Token token = parser.parseToken("5");
 		assertEquals(Float.class, token.getValueClass());
 		assertEquals(5F, token.getValue());
+	}
+
+	@Test
+	public void parseToken_methods() throws ParsingException {
+		Token token = parser.parseToken(Methods.HISTORY.getToken());
+		assertEquals(Methods.class, token.getValueClass());
+		assertEquals(Methods.HISTORY, token.getValue());
 	}
 
 	@Test
