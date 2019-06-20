@@ -6,7 +6,7 @@ package com.notreprojet.back.parsing;
  */
 public class Token<T> {
 
-	private T value;
+	private transient T value;
 
 	public T getValue() {
 		return value;
