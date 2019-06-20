@@ -10,12 +10,12 @@ import java.util.List;
  */
 public class Switch {
 
-	float state;
+	transient float state;
 	public float getState() {
 		return state;
 	}
 
-	List<CalculationCommand> history;
+	transient List<CalculationCommand> history;
 
 	/**
 	 * Get this instance commands history.

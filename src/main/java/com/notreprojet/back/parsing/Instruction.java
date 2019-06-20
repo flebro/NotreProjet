@@ -5,8 +5,8 @@ package com.notreprojet.back.parsing;
  */
 public class Instruction {
 
-	private Operators operator;
-	private float number;
+	private transient Operators operator;
+	private transient float number;
 
 	public Operators getOperator() {
 		return operator;

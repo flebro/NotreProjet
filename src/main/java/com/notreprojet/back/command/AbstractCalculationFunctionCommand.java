@@ -8,7 +8,7 @@ import com.notreprojet.back.parsing.Operators;
  */
 public abstract class AbstractCalculationFunctionCommand implements CalculationCommand {
 
-	private Calculator calculator;
+	private transient Calculator calculator;
 
 	/**
 	 * Gets this command instance calculator.
@@ -18,7 +18,7 @@ public abstract class AbstractCalculationFunctionCommand implements CalculationC
 		return calculator;
 	}
 
-	private float other;
+	private transient float other;
 	/**
 	 * Gets this command instance member.
 	 * @return this command instance member
@@ -28,7 +28,7 @@ public abstract class AbstractCalculationFunctionCommand implements CalculationC
 		return other;
 	}
 
-	private Operators operator;
+	private transient Operators operator;
 	/**
 	 * Gets this command operator.
 	 * @return this command instance operator

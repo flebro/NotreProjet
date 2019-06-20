@@ -3,6 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
+apply plugin: 'pmd'
 
 repositories {
 	mavenCentral()
@@ -29,4 +30,9 @@ checkstyleMain {
 }
 checkstyleTest {
 	source ='src/test/java'
+}
+
+pmd {
+    pmdTest.enabled=false
+    rulePriority=4
 }
