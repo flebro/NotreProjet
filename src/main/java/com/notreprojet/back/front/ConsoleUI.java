@@ -6,6 +6,7 @@ import com.notreprojet.back.calculus.exception.CalculusException;
 import com.notreprojet.back.command.CalculationCommand;
 import com.notreprojet.back.command.CommandFactory;
 import com.notreprojet.back.command.Switch;
+import com.notreprojet.back.parsing.Methods;
 import com.notreprojet.back.parsing.ParsedInput;
 import com.notreprojet.back.parsing.Parser;
 import com.notreprojet.back.parsing.ParsingException;
@@ -45,18 +46,7 @@ public class ConsoleUI {
 				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
 				// We check if we received a method
 				if (parsedInput.getMethods() != null) {
-					switch (parsedInput.getMethods()) {
-						case QUIT:
-							quit = true;
-							out.println("Au revoir!");
-							break;
-						case HISTORY:
-							List<CalculationCommand> calculationCommands =
-									calculusSwitch.getHistory();
-							calculusSwitch.clear();
-							runAndOutputCalculation(calculusSwitch, calculationCommands);
-							break;
-					}
+					quit = handleMethod(parsedInput.getMethods(), calculusSwitch);
 				} else {
 					if (parsedInput.isReset() == true) {
 						calculusSwitch.clear();
@@ -77,6 +67,28 @@ public class ConsoleUI {
 				out.print("Nouveau calcul : ");
 			}
 		} while (!quit);
+		out.println("Au revoir!");
+	}
+
+	/**
+	 * Handles a method input.
+	 * @param method method to handle
+	 * @param calculusSwitch active switch
+	 * @return boolean that indicates if the application should stop
+	 * @throws CalculusException if there is an exception while running the history
+	 */
+	public boolean handleMethod(Methods method, Switch calculusSwitch) throws CalculusException {
+		switch (method) {
+			case QUIT:
+				return true;
+			case HISTORY:
+				List<CalculationCommand> calculationCommands =
+						calculusSwitch.getHistory();
+				calculusSwitch.clear();
+				runAndOutputCalculation(calculusSwitch, calculationCommands);
+				break;
+		}
+		return false;
 	}
 
 	/**
