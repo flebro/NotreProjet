@@ -27,9 +27,15 @@ public class ConsoleUI {
 		CommandFactory commandFactory = new CommandFactory(calculator);
 		Parser parser = new Parser();
 
+		out.println("Bienvenue dans la calculatrice!");
+		out.print("Entrez votre premier calcul : ");
 		do {
 			try {
-				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
+				String input = in.nextLine();
+				if (input != null && input.toLowerCase().contains("exit")) {
+					break;
+				}
+				ParsedInput parsedInput = parser.parseTokensList(input);
 				if (parsedInput.isReset() == true) {
 					calculusSwitch.clear();
 				}
@@ -42,6 +48,7 @@ public class ConsoleUI {
 				out.println(e.getMessage());
 				calculusSwitch.clear();
 			}
+			out.print("Calcul suivant : ");
 		} while (true);
 	}
 }
