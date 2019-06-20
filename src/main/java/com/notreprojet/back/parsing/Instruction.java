@@ -1,5 +1,8 @@
 package com.notreprojet.back.parsing;
 
+/**
+ * Represents a parsed instruction from an input.
+ */
 public class Instruction {
 
 	private Operators operator;

@@ -13,6 +13,11 @@ import com.notreprojet.back.parsing.ParsingException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static java.lang.System.out;
+
+/**
+ * Represent a simple console mode UI.
+ */
 public class ConsoleUI {
 
 	public void run() {
@@ -25,12 +30,13 @@ public class ConsoleUI {
 		do {
 			try {
 				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
-				for (CalculationCommand calculationCommand : parsedInput.getInstructions().stream().map(commandFactory::create).collect(Collectors.toList())) {
+				for (CalculationCommand calculationCommand : parsedInput.getInstructions().stream()
+						.map(commandFactory::create).collect(Collectors.toList())) {
 					calculusSwitch.storeAndExecute(calculationCommand);
 				}
-				System.out.println("Resultat : " + calculusSwitch.getState());
+				out.println("Resultat : " + calculusSwitch.getState());
 			} catch (ParsingException | CalculusException e) {
-				System.out.println(e.getMessage());
+				out.println(e.getMessage());
 				calculusSwitch.clear();
 			}
 		} while (true);
