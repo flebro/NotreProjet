@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import static java.lang.System.out;
 
@@ -40,35 +39,52 @@ public class ConsoleUI {
 		out.println("Bienvenue dans la calculatrice!");
 		out.println("	tapez 'quit' pour quitter");
 		out.println("	tapez 'history' pour afficher l'historique");
-		out.print("\nEntrez votre premier calcul : ");
+		out.println("	tapez 'sumhistory' pour faire la somme de l'historique complet");
 
 		do {
-			try {
-				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
-				// We check if we received a method
-				if (parsedInput.getMethods() != null) {
-					quit = handleMethod(parsedInput.getMethods(), calculusSwitch);
-				} else {
-					if (parsedInput.isReset() == true) {
-						calculusSwitch.clear();
-					}
-					// Else we run calculation
-					List<CalculationCommand> calculationCommands =
-							parsedInput.getInstructions().stream()
-							.map(commandFactory::create).collect(Collectors.toList());
-					runAndOutputCalculation(calculusSwitch, calculationCommands)
-							.forEach(out::println);
-				}
-			} catch (ParsingException | CalculusException e) {
-				out.println(e.getMessage());
-				calculusSwitch.clear();
-				out.println("L'historique a été vidé!");
-			}
-			if (!quit) {
-				out.print("Nouveau calcul : ");
-			}
+			String input = in.nextLine();
+			List<String> outputs = handleInput(input, parser, calculusSwitch, commandFactory);
+			outputs.forEach(out::println);
+			quit = outputs.isEmpty();
 		} while (!quit);
 		out.println("Au revoir!");
+	}
+
+	/**
+	 * Handles a string input.
+	 * @param input input to handle
+	 * @param parser parser to parse the input
+	 * @param calculusSwitch switch to run calculus
+	 * @param commandFactory command producer
+	 * @return the list of outputs generated from input
+	 */
+	public List<String> handleInput(String input,
+									Parser parser,
+									Switch calculusSwitch,
+									CommandFactory commandFactory) {
+		List<String> outputs = new ArrayList<>();
+		try {
+			ParsedInput parsedInput = parser.parseTokensList(input);
+			// We check if we received a method
+			if (parsedInput.getMethods() != null) {
+				return handleMethod(parsedInput.getMethods(), calculusSwitch);
+			} else {
+				if (parsedInput.isReset() == true) {
+					calculusSwitch.clear();
+					outputs.add("Nouveau calcul : ");
+				}
+				// Else we run calculation
+				List<CalculationCommand> calculationCommands =
+						commandFactory.createFromParsedInput(parsedInput);
+				runAndOutputCalculation(calculusSwitch, calculationCommands)
+						.forEach(outputs::add);
+			}
+		} catch (ParsingException | CalculusException e) {
+			outputs.add(e.getMessage());
+			calculusSwitch.clear();
+			outputs.add("L'historique a été vidé!");
+		}
+		return outputs;
 	}
 
 	/**
@@ -78,18 +94,24 @@ public class ConsoleUI {
 	 * @return boolean that indicates if the application should stop
 	 * @throws CalculusException if there is an exception while running the history
 	 */
-	public boolean handleMethod(Methods method, Switch calculusSwitch) throws CalculusException {
+	public List<String> handleMethod(Methods method, Switch calculusSwitch) throws CalculusException {
+		List<String> outputs = new ArrayList<>();
+		List<CalculationCommand> calculationCommands;
 		switch (method) {
 			case QUIT:
-				return true;
+				break;
 			case HISTORY:
-				List<CalculationCommand> calculationCommands =
-						calculusSwitch.getHistory();
+				calculationCommands = calculusSwitch.getHistory();
 				calculusSwitch.clear();
-				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(out::println);
+				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(outputs::add);
+				break;
+			case SUM_HISTORY:
+				calculationCommands = calculusSwitch.getFullHistory();
+				calculusSwitch.clear();
+				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(outputs::add);
 				break;
 		}
-		return false;
+		return outputs;
 	}
 
 	/**
