@@ -7,7 +7,7 @@ import com.notreprojet.back.front.ConsoleUI;
  */
 public final class Application {
 
-	private Application() {}
+	private Application() { }
 
 	public static void main(String[] args) {
 		new ConsoleUI().run();
