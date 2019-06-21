@@ -26,8 +26,8 @@ public class Parser {
 		for (String token : input.trim().toLowerCase(Locale.getDefault()).split(" ")) {
 			Token parsedToken = parseToken(token);
 			if (Methods.class.equals(parsedToken.getValueClass())) {
-				if (CollectionUtils.isNotEmpty(instructions) ||
-						previous.isPresent()) {
+				if (CollectionUtils.isNotEmpty(instructions) 
+						|| previous.isPresent()) {
 					throw new ParsingException("A method should be the only token present");
 				} else {
 					parsedInput.setMethods((Methods) parsedToken.getValue());
@@ -35,8 +35,8 @@ public class Parser {
 				}
 			}
 
-			if (instructions.isEmpty() && !previous.isPresent() &&
-					Float.class.equals(parsedToken.getValueClass())) {
+			if (instructions.isEmpty() && !previous.isPresent() 
+					&& Float.class.equals(parsedToken.getValueClass())) {
 				instructions.add(new Instruction(Operators.PLUS, (Float) parsedToken.getValue()));
 				parsedInput.setReset(true);
 			} else if (previous.isPresent() &&
