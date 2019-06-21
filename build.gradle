@@ -49,6 +49,8 @@ checkstyleTest {
 pmd {
     pmdTest.enabled=false
     rulePriority=4
+    ruleSetFiles = files("config/pmd/pmd_rules_lvl1.xml")
+    ignoreFailures = true
 }
 
 jdepend {
