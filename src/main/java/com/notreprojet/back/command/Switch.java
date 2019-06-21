@@ -13,6 +13,8 @@ import java.util.stream.Stream;
 public class Switch {
 
 	private transient float state;
+	private transient List<CalculationCommand> history;
+	private final transient SwitchCareTaker careTaker;
 
 	/**
 	 * Gets this instance state.
@@ -22,8 +24,6 @@ public class Switch {
 		return state;
 	}
 
-	private transient List<CalculationCommand> history;
-
 	/**
 	 * Get this instance commands history.
 	 * @return
@@ -31,8 +31,6 @@ public class Switch {
 	public List<CalculationCommand> getHistory() {
 		return history;
 	}
-
-	private transient SwitchCareTaker careTaker;
 
 	/**
 	 * Default constructor.

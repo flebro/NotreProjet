@@ -28,13 +28,13 @@ public class ConsoleUI {
 	 * Runs the application.
 	 */
 	public void run() {
-		Scanner in = new Scanner(System.in);
+		Scanner inScanner = new Scanner(System.in);
 		Calculator calculator = new CalculatorImp();
 		Switch calculusSwitch = new Switch();
 		CommandFactory commandFactory = new CommandFactory(calculator);
 		Parser parser = new Parser();
 
-		boolean quit = false;
+		boolean quit;
 		
 		out.println("Bienvenue dans la calculatrice!");
 		out.println("	tapez 'quit' pour quitter");
@@ -42,7 +42,7 @@ public class ConsoleUI {
 		out.println("	tapez 'sumhistory' pour faire la somme de l'historique complet");
 
 		do {
-			String input = in.nextLine();
+			String input = inScanner.nextLine();
 			List<String> outputs = handleInput(input, parser, calculusSwitch, commandFactory);
 			outputs.forEach(out::println);
 			quit = outputs.isEmpty();
@@ -66,10 +66,8 @@ public class ConsoleUI {
 		try {
 			ParsedInput parsedInput = parser.parseTokensList(input);
 			// We check if we received a method
-			if (parsedInput.getMethods() != null) {
-				return handleMethod(parsedInput.getMethods(), calculusSwitch);
-			} else {
-				if (parsedInput.isReset() == true) {
+			if (parsedInput.getMethods() == null) {
+				if (parsedInput.isReset()) {
 					calculusSwitch.clear();
 					outputs.add("Nouveau calcul : ");
 				}
@@ -78,6 +76,8 @@ public class ConsoleUI {
 						commandFactory.createFromParsedInput(parsedInput);
 				runAndOutputCalculation(calculusSwitch, calculationCommands)
 						.forEach(outputs::add);
+			} else {
+				return handleMethod(parsedInput.getMethods(), calculusSwitch);
 			}
 		} catch (ParsingException | CalculusException e) {
 			outputs.add(e.getMessage());

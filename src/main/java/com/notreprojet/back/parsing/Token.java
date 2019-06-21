@@ -6,7 +6,7 @@ package com.notreprojet.back.parsing;
  */
 public class Token<T> {
 
-	private transient T value;
+	private final transient T value;
 
 	public T getValue() {
 		return value;
@@ -17,7 +17,7 @@ public class Token<T> {
 	}
 
 	public Class getValueClass() {
-		return value != null ? value.getClass() : null;
+		return value == null ? null : value.getClass();
 	}
 
 }
