@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class CommandFactory {
 
-	transient Calculator calculator;
+	private final transient Calculator calculator;
 
 	public CommandFactory(Calculator calculator) {
 		this.calculator = calculator;
