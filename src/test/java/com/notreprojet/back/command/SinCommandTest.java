@@ -6,14 +6,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Test class for {@link MultiplyCommand}.
+ * Test class for {@link SubCommand}.
  */
-public class MultiplyCommandTest {
+public class SinCommandTest {
 
 	@Test
 	public void execute() {
 		Calculator calculator = Mockito.mock(Calculator.class);
-		Mockito.when(calculator.multiply(7, 8)).thenReturn(56f);
-		Assert.assertEquals(56, new MultiplyCommand(calculator, 8).execute(7), 0);
+		Mockito.when(calculator.sin(60)).thenReturn(-0.3048106F);
+		Assert.assertEquals(-0.30481061339378357, new SinCommand(calculator, 60).execute(0), 0);
 	}
 }

@@ -2,6 +2,9 @@ package com.notreprojet.back.calculus;
 
 import com.notreprojet.back.calculus.exception.CalculusException;
 
+/**
+ * Implementation of the calculus repository.
+ */
 public class CalculatorImp implements Calculator {
 
 	@Override
@@ -26,6 +29,21 @@ public class CalculatorImp implements Calculator {
 		} else {
 			return first / second;
 		}
+	}
+	
+	@Override
+	public float sin(float first) {
+		return (float) Math.sin(first);
+	}
+	
+	@Override
+	public float cos(float first) {
+		return (float) Math.cos(first);
+	}
+	
+	@Override
+	public float tan(float first) {
+		return (float) Math.tan(first);
 	}
 
 }

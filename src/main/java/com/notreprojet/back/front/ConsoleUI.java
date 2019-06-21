@@ -3,73 +3,116 @@ package com.notreprojet.back.front;
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.calculus.CalculatorImp;
 import com.notreprojet.back.calculus.exception.CalculusException;
-import com.notreprojet.back.command.AddCommand;
-import com.notreprojet.back.command.SubCommand;
 import com.notreprojet.back.command.CalculationCommand;
-import com.notreprojet.back.command.DivideCommand;
-import com.notreprojet.back.command.MultiplyCommand;
+import com.notreprojet.back.command.CommandFactory;
 import com.notreprojet.back.command.Switch;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
+import com.notreprojet.back.parsing.Methods;
+import com.notreprojet.back.parsing.ParsedInput;
+import com.notreprojet.back.parsing.Parser;
+import com.notreprojet.back.parsing.ParsingException;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
+import static java.lang.System.out;
+
+/**
+ * Represent a simple console mode UI.
+ */
 public class ConsoleUI {
 
+	/**
+	 * Runs the application.
+	 */
 	public void run() {
 		Scanner in = new Scanner(System.in);
 		Calculator calculator = new CalculatorImp();
 		Switch calculusSwitch = new Switch();
-		String[] args = null;
+		CommandFactory commandFactory = new CommandFactory(calculator);
+		Parser parser = new Parser();
+
+		boolean quit = false;
 		
-		System.out.println("Bienvenue sur la calculatrice.");
-		System.out.print("Entrez votre premier calcul : ");
+		out.println("Bienvenue dans la calculatrice!");
+		out.println("	tapez 'quit' pour quitter");
+		out.println("	tapez 'history' pour afficher l'historique");
+		out.print("\nEntrez votre premier calcul : ");
 
 		do {
-			args = in.nextLine().toLowerCase().split(" ");
-
-			int compteur = 0;
 			try {
-				if (StringUtils.isNumeric(args[0])) {
-					calculusSwitch.storeAndExecute(new AddCommand(calculator, NumberUtils.toFloat(args[0])));
-					compteur++;
-				}
-				while (compteur < args.length) {
-					String token = args[compteur];
-
-					if ("+".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new AddCommand(calculator, member));
-						}
-					} else if ("/".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new DivideCommand(calculator, member));
-						}
-					} else if ("*".equals(token)) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new MultiplyCommand(calculator, member));
-						}
-					} else if (args[compteur].equals("-")) {
-						compteur++;
-						if (args.length > compteur) {
-							float member = NumberUtils.toFloat(args[compteur]);
-							calculusSwitch.storeAndExecute(new SubCommand(calculator, member));
-						}
+				ParsedInput parsedInput = parser.parseTokensList(in.nextLine());
+				// We check if we received a method
+				if (parsedInput.getMethods() != null) {
+					quit = handleMethod(parsedInput.getMethods(), calculusSwitch);
+				} else {
+					if (parsedInput.isReset() == true) {
+						calculusSwitch.clear();
 					}
-					compteur++;
+					// Else we run calculation
+					List<CalculationCommand> calculationCommands =
+							parsedInput.getInstructions().stream()
+							.map(commandFactory::create).collect(Collectors.toList());
+					runAndOutputCalculation(calculusSwitch, calculationCommands)
+							.forEach(out::println);
 				}
-				System.out.println("Resultat : " + calculusSwitch.getState());
-				System.out.print("Calcul suivant : ");
-			} catch (CalculusException cex) {
-				System.out.println("Erreur : " + cex.getMessage());
+			} catch (ParsingException | CalculusException e) {
+				out.println(e.getMessage());
+				calculusSwitch.clear();
+				out.println("L'historique a été vidé!");
 			}
-		} while (args.length > 0 && !args[0].toLowerCase().equals("exit"));
+			if (!quit) {
+				out.print("Nouveau calcul : ");
+			}
+		} while (!quit);
+		out.println("Au revoir!");
+	}
+
+	/**
+	 * Handles a method input.
+	 * @param method method to handle
+	 * @param calculusSwitch active switch
+	 * @return boolean that indicates if the application should stop
+	 * @throws CalculusException if there is an exception while running the history
+	 */
+	public boolean handleMethod(Methods method, Switch calculusSwitch) throws CalculusException {
+		switch (method) {
+			case QUIT:
+				return true;
+			case HISTORY:
+				List<CalculationCommand> calculationCommands =
+						calculusSwitch.getHistory();
+				calculusSwitch.clear();
+				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(out::println);
+				break;
+		}
+		return false;
+	}
+
+	/**
+	 * Runs and store a list of calculation commands through a switch.
+	 * @param calculusSwitch switch that will execute commands
+	 * @param calculationCommands commands to execute
+	 * @throws CalculusException if the calculus encounters an error
+	 */
+	public List<String> runAndOutputCalculation(
+			Switch calculusSwitch, List<CalculationCommand> calculationCommands)
+			throws CalculusException {
+		List<String> outputs = new ArrayList<>();
+		Iterator<CalculationCommand> iterator = calculationCommands.iterator();
+		while (iterator.hasNext()) {
+			CalculationCommand calculationCommand = iterator.next();
+			calculusSwitch.storeAndExecute(calculationCommand);
+			outputs.add(MessageFormat.format(
+					"{0} {1} = {2}",
+					calculationCommand.getOperator().getToken(),
+					calculationCommand.getMember(),
+					calculusSwitch.getState()));
+		}
+		return outputs;
 	}
 
 }
