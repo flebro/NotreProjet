@@ -35,8 +35,9 @@ javadoc {
 }
 
 checkstyle {
-	toolVersion '7.8.1'
-	configFile file("config/checkstyle/checkstyle.xml")
+    checkstyleTest.enabled = false
+	configFile file("config/checkstyle/checkstyle_rules_lvl1.xml")
+    ignoreFailures = true
 }
 checkstyleMain {
 	source ='src/main/java'
@@ -48,6 +49,8 @@ checkstyleTest {
 pmd {
     pmdTest.enabled=false
     rulePriority=4
+    ruleSetFiles = files("config/pmd/pmd_rules_lvl1.xml")
+    ignoreFailures = true
 }
 
 jdepend {
