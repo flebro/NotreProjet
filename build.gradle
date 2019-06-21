@@ -17,6 +17,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'jdepend'
 apply plugin: 'de.aaschmid.cpd'
+apply plugin: "findbugs"
 
 repositories {
 	mavenCentral()
@@ -28,6 +29,9 @@ dependencies {
 	testCompile("org.mockito:mockito-core:2.+")
 	testImplementation("junit:junit:4.12")
 }
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
 javadoc {
 	source = sourceSets.main.allJava
@@ -73,4 +77,8 @@ cpdCheck {
     }
     ignoreFailures = true
     source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+}
+
+findbugs {
+    ignoreFailures = true
 }
