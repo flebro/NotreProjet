@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
+
 /**
  * Test class for {@link Switch}.
  */
@@ -45,5 +47,19 @@ public class SwitchTest {
 		sswitch.clear();
 		Assert.assertTrue(sswitch.getHistory().isEmpty());
 		Assert.assertEquals(0F, sswitch.getState(), 0);
+	}
+
+	@Test
+	public void getFullHistory() throws CalculusException {
+		CalculationCommand calculusCommand = Mockito.mock(CalculationCommand.class);
+		Mockito.when(calculusCommand.getMember()).thenReturn(5F);
+		Switch sswitch = new Switch();
+		sswitch.storeAndExecute(calculusCommand);
+		sswitch.clear();
+		sswitch.storeAndExecute(calculusCommand);
+		sswitch.clear();
+		sswitch.storeAndExecute(calculusCommand);
+		List<CalculationCommand> fullhistory = sswitch.getFullHistory();
+		Assert.assertEquals(3, fullhistory.size());
 	}
 }

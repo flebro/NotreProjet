@@ -9,7 +9,8 @@ import java.util.Optional;
 public enum Methods {
 
 	QUIT ("quit"),
-	HISTORY ("history");
+	HISTORY ("history"),
+	SUM_HISTORY ("sumhistory");
 
 	private String token;
 

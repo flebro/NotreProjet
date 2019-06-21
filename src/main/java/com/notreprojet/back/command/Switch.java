@@ -4,18 +4,25 @@ import com.notreprojet.back.calculus.exception.CalculusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Our command pattern Switch responsible for the execution and storing of calculus commands.
  */
 public class Switch {
 
-	transient float state;
+	private transient float state;
+
+	/**
+	 * Gets this instance state.
+	 * @return
+	 */
 	public float getState() {
 		return state;
 	}
 
-	transient List<CalculationCommand> history;
+	private transient List<CalculationCommand> history;
 
 	/**
 	 * Get this instance commands history.
@@ -25,12 +32,15 @@ public class Switch {
 		return history;
 	}
 
+	private transient SwitchCareTaker careTaker;
+
 	/**
 	 * Default constructor.
 	 */
 	public Switch() {
-		state = 0;
-		history = new ArrayList<>();
+		this.state = 0;
+		this.history = new ArrayList<>();
+		this.careTaker = new SwitchCareTaker();
 	}
 
 	/**
@@ -49,12 +59,33 @@ public class Switch {
 	 * Clears the switch history.
 	 */
 	public void clear() {
+		this.careTaker.add(saveStateToMemento());
 		this.state = 0;
 		this.history = new ArrayList<>();
 	}
 
 	private void store(CalculationCommand calculationCommand) {
 		history.add(calculationCommand);
+	}
+
+	/**
+	 * Saves the current switch state to a memento.
+	 * @return
+	 */
+	public SwitchMemento saveStateToMemento() {
+		return new SwitchMemento(getHistory());
+	}
+
+	/**
+	 * Gets the full calculation commands history since this switch instanciation.
+	 * @return
+	 */
+	public List<CalculationCommand> getFullHistory() {
+		return Stream.concat(this.careTaker.getAll().stream()
+				.map(SwitchMemento::getCommands)
+				.flatMap(List::stream),
+				history.stream())
+				.collect(Collectors.toList());
 	}
 
 }
