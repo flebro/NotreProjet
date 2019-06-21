@@ -4,6 +4,7 @@ apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
+apply plugin: 'jdepend'
 
 repositories {
 	mavenCentral()
@@ -35,4 +36,18 @@ checkstyleTest {
 pmd {
     pmdTest.enabled=false
     rulePriority=4
+}
+
+jdepend {
+   toolVersion = "2.9.1"
+   sourceSets = [sourceSets.main]
+   ignoreFailures = true
+}
+
+
+jdependMain {
+   reports {
+      xml.enabled true
+      text.enabled false
+   }
 }
