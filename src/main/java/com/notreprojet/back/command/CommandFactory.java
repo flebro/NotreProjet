@@ -40,6 +40,8 @@ public class CommandFactory {
 					return new CosCommand(calculator, instruction.getNumber());
 				case TAN:
 					return new TanCommand(calculator, instruction.getNumber());
+				default:
+					break;
 			}
 		}
 		return null;

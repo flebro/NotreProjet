@@ -110,6 +110,8 @@ public class ConsoleUI {
 				calculusSwitch.clear();
 				runAndOutputCalculation(calculusSwitch, calculationCommands).forEach(outputs::add);
 				break;
+			default:
+				break;
 		}
 		return outputs;
 	}

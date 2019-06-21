@@ -39,8 +39,8 @@ public class Parser {
 					&& Float.class.equals(parsedToken.getValueClass())) {
 				instructions.add(new Instruction(Operators.PLUS, (Float) parsedToken.getValue()));
 				parsedInput.setReset(true);
-			} else if (previous.isPresent() &&
-					Float.class.equals(parsedToken.getValueClass())) {
+			} else if (previous.isPresent() 
+					&& Float.class.equals(parsedToken.getValueClass())) {
 				Instruction instruction = new Instruction(
 						(Operators) previous.get().getValue(),
 						(Float) parsedToken.getValue());
