@@ -48,6 +48,29 @@ public class CommandFactoryTest {
 	}
 
 	@Test
+	public void create_sin() {
+		Assert.assertEquals(SinCommand.class,
+				commandFactory.create(new Instruction(Operators.SIN, 5)).getClass());
+	}
+
+	@Test
+	public void create_cos() {
+		Assert.assertEquals(CosCommand.class,
+				commandFactory.create(new Instruction(Operators.COS, 5)).getClass());
+	}
+
+	@Test
+	public void create_tan() {
+		Assert.assertEquals(TanCommand.class,
+				commandFactory.create(new Instruction(Operators.TAN, 5)).getClass());
+	}
+
+	@Test
+	public void create_default() {
+		Assert.assertNull(commandFactory.create(new Instruction(null, 5)));
+	}
+
+	@Test
 	public void createFromParsedInput() {
 		ParsedInput parsedInput = Mockito.mock(ParsedInput.class);
 		Instruction instruction = new Instruction(Operators.PLUS, 5);

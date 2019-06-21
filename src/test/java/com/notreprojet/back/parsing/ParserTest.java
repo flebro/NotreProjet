@@ -38,6 +38,7 @@ public class ParserTest {
 			parser.parseTokensList("+ -");
 			parser.parseTokensList("history 5");
 			parser.parseTokensList("5 history");
+			parser.parseTokensList("+ history");
 			parser.parseTokensList("+ 5 history");
 			Assert.fail();
 		} catch (ParsingException e) {
