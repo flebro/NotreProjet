@@ -1,9 +1,22 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "de.aaschmid:gradle-cpd-plugin:2.0"
+  }
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
+apply plugin: 'jdepend'
+apply plugin: 'de.aaschmid.cpd'
 
 repositories {
 	mavenCentral()
@@ -35,4 +48,27 @@ checkstyleTest {
 pmd {
     pmdTest.enabled=false
     rulePriority=4
+}
+
+jdepend {
+   toolVersion = "2.9.1"
+   sourceSets = [sourceSets.main]
+   ignoreFailures = true
+}
+
+
+jdependMain {
+   reports {
+      xml.enabled true
+      text.enabled false
+   }
+}
+
+cpdCheck {
+    reports {
+        text.enabled = true
+        xml.enabled = true
+    }
+    ignoreFailures = true
+    source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
 }
