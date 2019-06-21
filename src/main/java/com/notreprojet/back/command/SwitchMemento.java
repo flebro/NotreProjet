@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class SwitchMemento {
 
-	private transient List<CalculationCommand> commands;
+	private final transient List<CalculationCommand> commands;
 
 	/**
 	 * Gets the memorized commands.

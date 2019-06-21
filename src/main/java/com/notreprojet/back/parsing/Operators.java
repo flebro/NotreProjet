@@ -8,13 +8,13 @@ import java.util.Optional;
  */
 public enum Operators {
 
-	PLUS ("+"),
-	MINUS ("-"),
-	TIMES ("*"),
-	DIVIDE ("/"),
-	SIN ("sin"),
-	COS ("cos"),
-	TAN ("tan");
+	PLUS("+"),
+	MINUS("-"),
+	TIMES("*"),
+	DIVIDE("/"),
+	SIN("sin"),
+	COS("cos"),
+	TAN("tan");
 
 	private String token;
 

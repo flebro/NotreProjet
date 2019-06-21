@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class SwitchCareTaker {
 
-	private transient List<SwitchMemento> mementoList = new ArrayList<>();
+	private final transient List<SwitchMemento> mementoList = new ArrayList<>();
 
 	/**
 	 * Saves a switch state.

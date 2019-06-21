@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public class CommandFactory {
 
-	transient Calculator calculator;
+	private final transient Calculator calculator;
 
 	public CommandFactory(Calculator calculator) {
 		this.calculator = calculator;
@@ -40,6 +40,8 @@ public class CommandFactory {
 					return new CosCommand(calculator, instruction.getNumber());
 				case TAN:
 					return new TanCommand(calculator, instruction.getNumber());
+				default:
+					break;
 			}
 		}
 		return null;
