@@ -2,6 +2,10 @@ package com.notreprojet.back.command;
 
 import com.notreprojet.back.calculus.Calculator;
 import com.notreprojet.back.parsing.Instruction;
+import com.notreprojet.back.parsing.ParsedInput;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is responsible of building commands from instructions.
@@ -37,6 +41,16 @@ public class CommandFactory {
 				return new TanCommand(calculator, instruction.getNumber());
 			default: return null;
 		}
+	}
+
+	/**
+	 * Creates a list of commands from a {@link ParsedInput}.
+	 * @param parsedInput parsedInput to create commands from
+	 * @return commands created
+	 */
+	public List<CalculationCommand> createFromParsedInput(ParsedInput parsedInput) {
+		return 	parsedInput.getInstructions().stream()
+				.map(this::create).collect(Collectors.toList());
 	}
 
 }
